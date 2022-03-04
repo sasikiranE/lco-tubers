@@ -7,7 +7,7 @@ class Slider(models.Model):
     headline = models.CharField(max_length=200)
     subtitle = models.CharField(max_length=200)
     button_text = models.CharField(max_length=20)
-    photo = models.ImageField(upload_to='media/slider/')
+    photo_link = models.CharField(max_length=200)
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
 

@@ -1,12 +1,21 @@
-from django.shortcuts import render
-from django.http import HttpResponse
+from django.shortcuts import render, get_object_or_404
+from . models import Youtuber
 
 # Create your views here.
 def youtubers(request):
-    return HttpResponse('Youtubers page')
+    tubers = Youtuber.objects.order_by('-updated').all()
+    context = {
+        'tubers' : tubers,
+    }
+    return render(request, 'youtubers/youtubers.html', context)
 
-def youtuber_details(requset, youtuber_id):
-    return HttpResponse(f'Hi I am Youtuber {youtuber_id}')
+
+def youtuber_details(request, youtuber_id):
+    tuber = get_object_or_404(Youtuber, pk=youtuber_id)
+    context = {
+        'tuber' : tuber,
+    }
+    return render(request, 'youtubers/youtuber_details.html', context)
 
 def search(request):
-    return HttpResponse('Search page')
+    pass

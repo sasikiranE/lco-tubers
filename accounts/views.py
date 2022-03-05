@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.models import User
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required
 
 # Create your views here.
 def login_user(request):
@@ -20,6 +21,7 @@ def login_user(request):
     return render(request, 'accounts/login.html')
 
 
+@login_required(login_url='login_user')
 def logout_user(request):
     logout(request)
     messages.success(request, 'logged out successfully')
@@ -51,4 +53,7 @@ def register_user(request):
 
 
 def dashboard(request):
+    if not request.user.is_authenticated:
+        messages.info(request, 'login is required')
+        return redirect('login_user')
     return render(request, 'accounts/dashboard.html')

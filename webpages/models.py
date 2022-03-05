@@ -34,3 +34,15 @@ class Team(models.Model):
 
     def __str__(self) -> str:
         return f'{self.first_name} {self.last_name}'
+
+
+class ContactUs(models.Model):
+    fullname = models.CharField(max_length=200)
+    phoneno = models.PositiveBigIntegerField()
+    email = models.CharField(max_length=200)
+    company_name = models.CharField(max_length=200)
+    subject = models.CharField(max_length=200)
+    message = models.TextField()
+
+    def __str__(self) -> str:
+        return f'{self.fullname}'

@@ -1,6 +1,7 @@
 from django.shortcuts import render
-from . models import Slider, Team
+from . models import Slider, Team, ContactUs
 from youtubers.models import Youtuber
+from django.contrib import messages
 
 # Create your views here.
 
@@ -27,4 +28,15 @@ def about(request):
 
 
 def contact(request):
+    if request.method == 'POST':
+        fullname = request.POST['fullname']
+        phoneno = request.POST['phoneno']
+        email = request.POST['email']
+        company_name = request.POST['company_name']
+        subject = request.POST['subject']
+        message = request.POST['message']
+
+        obj = ContactUs(fullname=fullname, phoneno=phoneno, email=email, company_name=company_name, subject=subject, message=message)
+        obj.save()
+        messages.success(request, "Thank's for reaching out to us!")
     return render(request, 'webpages/contact.html')

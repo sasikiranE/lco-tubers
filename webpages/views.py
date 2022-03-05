@@ -6,9 +6,9 @@ from youtubers.models import Youtuber
 
 def home(request):
     sliders = Slider.objects.order_by('-updated').all()
-    team_members = Team.objects.order_by('created').all()
+    team_members = Team.objects.order_by('-created').all()
     featured_youtubers = Youtuber.objects.filter(is_featured=True).all()[:10]
-    youtubers = Youtuber.objects.order_by('updated').all()[:10]
+    youtubers = Youtuber.objects.order_by('-updated').all()[:10]
     context = {
         'sliders' : sliders,
         'team_members' : team_members,
@@ -17,11 +17,14 @@ def home(request):
     }
     return render(request, 'webpages/home.html', context)
 
+
 def about(request):
-    return render(request, 'webpages/about.html')
+    team_members = Team.objects.order_by('-created').all()
+    context = {
+        'team_members' : team_members,
+    }
+    return render(request, 'webpages/about.html', context)
+
 
 def contact(request):
     return render(request, 'webpages/contact.html')
-    
-def services(request):
-    return render(request, 'webpages/services.html')

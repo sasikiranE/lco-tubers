@@ -3,6 +3,7 @@ from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.models import User
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from youtubers.models import Youtuber
 
 # Create your views here.
 def login_user(request):
@@ -56,4 +57,9 @@ def dashboard(request):
     if not request.user.is_authenticated:
         messages.info(request, 'login is required')
         return redirect('login_user')
-    return render(request, 'accounts/dashboard.html')
+    else:
+        tubers = Youtuber.objects.order_by('-updated')[:3]
+        context = {
+            'tubers' : tubers,
+        }
+        return render(request, 'accounts/dashboard.html', context)

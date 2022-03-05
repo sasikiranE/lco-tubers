@@ -147,3 +147,5 @@ when i run collectstatic all the static files, will be served from BASE_DIR/stat
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 SITE_ID = 1
+
+LOGIN_REDIRECT_URL = 'dashboard'

@@ -4,6 +4,11 @@
 
 {% block content %}
 
+
+<div class="container">
+    {% include 'messages.html' %}
+</div>
+
 <main class="home">
     <div class="top" data-slick='{"slidesToShow": 1, "slidesToScroll": 1}'>
         {% for slider in sliders %}
